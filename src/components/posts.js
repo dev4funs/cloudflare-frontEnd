@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "@reach/router";
+import { post, get } from "../api/http";
+// axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const getPosts = async () => {
-      const resp = await fetch(
-        "https://serverless-api.signalnerve.workers.dev/api/posts"
-      );
-      const postsResp = await resp.json();
-      setPosts(postsResp);
+      try {
+        const resp = await get("/posts", {
+          crossDomain: true,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
-
     getPosts();
   }, []);
 
