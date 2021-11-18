@@ -1,8 +1,11 @@
 import axios from "axios";
 
-// axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
-axios.defaults.baseURL = "http://127.0.0.1:8787";
-// axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
+// axios.defaults.baseURL = "http://127.0.0.1:8787";
+if (process.env.BASE_URL !== undefined) {
+  axios.defaults.baseUR = process.env.BASE_URL;
+} else {
+  axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
+}
 // post
 export function post(url, data, contentType) {
   return axios.post(url, data, {
