@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { post, get } from "../api/http";
 import Form from "./form";
 import Card from "./card";
-// axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -21,8 +20,14 @@ const Posts = () => {
 
   const onSubmit = async (inputs) => {
     try {
-      const resp = await post("/posts", inputs);
-      console.log(resp);
+      const response = await post("/posts", inputs);
+      const { status, data } = response;
+      console.log(response);
+      if (status === 200) {
+        setPosts(data);
+      } else {
+        alert("Failed to add new post!");
+      }
     } catch (error) {
       console.log(error);
     }
