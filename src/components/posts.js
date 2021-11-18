@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "@reach/router";
 import { post, get } from "../api/http";
+import Form from "./form";
+import Card from "./card";
 // axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
 
 const Posts = () => {
@@ -9,10 +10,8 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resp = await get("/posts", {
-          crossDomain: true,
-          headers: { "Access-Control-Allow-Origin": "*" },
-        });
+        const resp = await get("/posts");
+        setPosts(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -20,15 +19,22 @@ const Posts = () => {
     getPosts();
   }, []);
 
+  const onSubmit = async (inputs) => {
+    try {
+      const resp = await post("/posts", inputs);
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div>
+    <div class="md:flex flex-col justify-center">
       <h1>Posts</h1>
+      <Form onSubmit={onSubmit} />
+      {posts.length === 0 && <div class="self-center">loading...</div>}
       {posts.map((post) => (
-        <div key={post.id}>
-          <h2>
-            <Link to={`/posts/${post.id}`}>{post.title}</Link>
-          </h2>
-        </div>
+        <Card key={post.id} {...post} />
       ))}
     </div>
   );

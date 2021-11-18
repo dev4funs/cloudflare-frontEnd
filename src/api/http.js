@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
+// axios.defaults.baseURL = "https://your-worker.emiliodeng98.workers.dev";
+axios.defaults.baseURL = "http://127.0.0.1:8787";
 
 // post
 export function post(url, data, contentType) {
@@ -23,9 +24,19 @@ export function postFormData(url, data, contentType) {
 }
 
 export function get(url, params) {
-  return axios.get(url, {
-    params: params,
-  });
+  return axios.get(
+    url,
+    {
+      params: params,
+    },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+    }
+  );
 }
 
 export function del(url, params) {
