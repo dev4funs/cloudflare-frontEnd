@@ -25,6 +25,7 @@ const Posts = () => {
       console.log(response);
       if (status === 200) {
         setPosts(data);
+        alert("Post success!");
       } else {
         alert("Failed to add new post!");
       }

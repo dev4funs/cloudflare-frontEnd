@@ -12,8 +12,11 @@ const Form = ({ onSubmit }) => {
     <form
       class="md:flex flex-col w-96 self-center"
       onSubmit={(e) => {
-        onSubmit && onSubmit(inputs);
-        console.log(inputs);
+        if (e.target.checkValidity()) {
+          onSubmit && onSubmit(inputs);
+          console.log(inputs);
+        } else {
+        }
         e.preventDefault();
       }}
     >
@@ -25,6 +28,7 @@ const Form = ({ onSubmit }) => {
         value={inputs.username || ""}
         onChange={handleChange}
         class="border-2 border-gray-500"
+        required
       ></input>
       <label class="m-2">Title</label>
       <input
@@ -34,6 +38,7 @@ const Form = ({ onSubmit }) => {
         value={inputs.title || ""}
         onChange={handleChange}
         class="border-2 border-gray-500"
+        required
       ></input>
       <label class="m-2">Content</label>
       <textarea
@@ -42,6 +47,7 @@ const Form = ({ onSubmit }) => {
         name="content"
         value={inputs.content || ""}
         onChange={handleChange}
+        required
         class="border-2 border-gray-500 "
       ></textarea>
       <input class="my-3 h-10" type="submit"></input>
