@@ -44,7 +44,7 @@ const Form = ({ onSubmit }) => {
         onChange={handleChange}
         class="border-2 border-gray-500 "
       ></textarea>
-      <input type="submit"></input>
+      <input class="my-3 h-10" type="submit"></input>
     </form>
   );
 };
