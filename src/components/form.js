@@ -14,7 +14,7 @@ const Form = ({ onSubmit }) => {
       onSubmit={(e) => {
         if (e.target.checkValidity()) {
           onSubmit && onSubmit(inputs);
-          console.log(inputs);
+          setInputs({});
         } else {
         }
         e.preventDefault();
@@ -50,7 +50,7 @@ const Form = ({ onSubmit }) => {
         required
         class="border-2 border-gray-500 "
       ></textarea>
-      <input class="my-3 h-10" type="submit"></input>
+      <input class="my-3 h-10 bg" type="submit"></input>
     </form>
   );
 };
